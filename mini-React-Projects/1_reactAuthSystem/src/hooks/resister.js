@@ -1,20 +1,21 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth2 } from "../context/AuthContext2";
 
-const { users, register } = useAuth();
-const [newUser,setNewUser] = useState(users)
-const useResister = (name, email, password) => {
-   const user = {
-        id:Date.now(),
-        name,
-        email,
-        password
-    }
-   
-    console.log("Aniket")
-    register(()=>setNewUser([user,...users]))
-    
-    return prompt("Resistration Successfull !")
+const useResister = () => {
+  const { users, setUsers, register } = useAuth2();
+
+  const resisterUser = (name, email, password) => {
+    const user = {
+      id: Date.now(),
+      name,
+      email,
+      password,
+    };
+
+    register(setUsers([user, ...users]));
+    return users;
+  };
+  return resisterUser;
 };
 
-export default useResister
+export default useResister;
