@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import useResister from "../../hooks/resister";
 import { useAuth2 } from "../../context/AuthContext2";
-
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 function Resister() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -9,6 +10,7 @@ function Resister() {
 
   const resisterUser = useResister();
   const { users } = useAuth2();
+  const navigate = useNavigate();
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -71,30 +73,36 @@ function Resister() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
                 />
-                <button
-                  type="submit"
-                  className="mt-5 tracking-wide font-semibold bg-blue-900 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none cursor-pointer"
-                >
-                  <svg
-                    className="w-6 h-6 -ml-2"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                {/* <Link to="/dashboard"> */}
+                  <button
+                    type="submit"
+                    onClick={() => navigate("/dashboard")}
+                    className="mt-5 tracking-wide font-semibold bg-blue-900 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none cursor-pointer"
                   >
-                    <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                    <circle cx="8.5" cy="7" r="4" />
-                    <path d="M20 8v6M23 11h-6" />{" "}
-                    {/* Plus icon indicating "Sign Up" */}
-                  </svg>
-                  <span className="ml-3">Sign Up</span>
-                </button>
+                    <svg
+                      className="w-6 h-6 -ml-2"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                      <circle cx="8.5" cy="7" r="4" />
+                      <path d="M20 8v6M23 11h-6" />{" "}
+                      {/* Plus icon indicating "Sign Up" */}
+                    </svg>
+                    <span className="ml-3">Sign Up</span>
+                  </button>
+                {/* </Link> */}
                 <p className="mt-6 text-xs text-gray-600 text-center">
                   Already have an account?{" "}
-                  <a href="">
+                  <Link
+                    to="/login"
+                    className="font-semibold text-gray-800 hover:text-blue-900 focus:text-blue-900"
+                  >
                     <span className="text-blue-900 font-semibold">Login</span>
-                  </a>
+                  </Link>
                 </p>
               </form>
             </div>

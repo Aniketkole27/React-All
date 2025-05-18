@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useAuth2 } from "../../context/AuthContext2";
 import useLogin from "../../hooks/login";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -88,12 +89,15 @@ function Login() {
                     <span className="ml-3">Login</span>
                   </button>
                   <p className="mt-6 text-xs text-gray-600 text-center">
-                    Don't have an account?{" "}
-                    <a href="">
+                    Don't have an account?
+                    <Link
+                      to="/signup"
+                      className="font-semibold text-gray-800 hover:text-blue-900 focus:text-blue-900"
+                    >
                       <span className="text-blue-900 font-semibold">
                         Register
                       </span>
-                    </a>
+                    </Link>
                   </p>
                 </form>
               </div>
