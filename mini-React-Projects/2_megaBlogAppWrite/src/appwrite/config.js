@@ -18,7 +18,7 @@ export class Services {
   async createPost({ title, slug, content, featuredImage, status, userId }) {
     try {
       await this.databases.createDocument(
-        conf.appwriteUrl,
+        conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         slug,
         {
@@ -66,7 +66,6 @@ export class Services {
     }
   }
 
-  
   async getPost(slug) {
     try {
       return await this.databases.getDocument(
@@ -117,14 +116,16 @@ export class Services {
   }
 
   getFilePreview(fileId) {
-    try {
-      return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
-    } catch (error) {
-      console.log("Appwrite service :: getFilePreview :: error", error);
-      return false;
-    }
+    // try {
+    //   return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
+    // } catch (error) {
+    //   console.log("Appwrite service :: getFilePreview :: error", error);
+    //   return false;
+    // }
+    return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
   }
+
 }
 
-const service = new Services()
-export default service
+const service = new Services();
+export default service;
