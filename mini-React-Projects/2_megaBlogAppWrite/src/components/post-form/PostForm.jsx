@@ -16,7 +16,9 @@ function PostForm({ post }) {
       },
     });
   const navigate = useNavigate();
-  const userData = useSelector((state) => state.userData);
+  const userData = useSelector((state) => state.userData)
+  // let userData = useSelector((state) => state.userData);
+  console.log(userData)
 
   const submit = async (data) => {
     if (post) {
@@ -29,33 +31,27 @@ function PostForm({ post }) {
       const dbPost = await Services.updatePost(post.$id, {
         ...data,
         featuredImage: file ? file.id : undefined,
-
-        if(dbPost) {
-          navigate(`/post/${dbPost.$id}`);
-        },
       });
+      if (dbPost) {
+        // navigate(`/post/${dbPost.$id}`);
+        navigate("/");
+      }
     } else {
       let file = null;
       if (data.image[0]) {
         file = await Services.uploadFile(data.image[0]);
       }
 
-      // console.log(data)
-      // console.log(userData)
       if (file) {
-        data.featuredImage = file.$id;
+        const fileId = file.$id;
+        data.featuredImage = fileId;
         const dbPost = await Services.createPost({
-          title: data.title,
-          slug: data.slug,
-          content: data.content,
-          featuredImage: data.featuredImage,
-          status: data.status,
+          ...data,
           userId: userData.$id,
         });
 
         if (dbPost) {
-          // navigate(`/post/${dbPost.$id}`);
-          navigate("/");
+          navigate('/');
         }
       }
     }
@@ -80,6 +76,10 @@ function PostForm({ post }) {
       return () => subscription.unsubscribe();
     });
   }, [watch, slugTransform, setValue]);
+
+  const handleNaming = () => {
+    console.log("Clicked Me");
+  };
 
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
@@ -120,13 +120,11 @@ function PostForm({ post }) {
 
         {post && (
           <div className="w-full mb-4">
-            {/* {console.log(Services.getFilePreview(post.featuredImage))} */}
-            { <img
+            <img
               src={Services.getFilePreview(post.featuredImage)}
               alt={post.title}
               className="rounded-lg"
-            /> }
-          
+            />
           </div>
         )}
         <Select
@@ -137,6 +135,7 @@ function PostForm({ post }) {
         />
         <Button
           type="submit"
+          // onClick={handleNaming}
           bgColor={post ? "bg-green-500" : undefined}
           className="w-full"
         >

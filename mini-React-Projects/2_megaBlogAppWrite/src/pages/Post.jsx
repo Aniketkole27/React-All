@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import appwriteService from "../appwrite/config";
+import Services from "../appwrite/config";
 import { Button, Container } from "../components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
@@ -16,7 +16,7 @@ export default function Post() {
 
   useEffect(() => {
     if (slug) {
-      appwriteService.getPost(slug).then((post) => {
+      Services.getPost(slug).then((post) => {
         if (post) setPost(post);
         else navigate("/");
       });
@@ -24,20 +24,20 @@ export default function Post() {
   }, [slug, navigate]);
 
   const deletePost = () => {
-    appwriteService.deletePost(post.$id).then((status) => {
+    Services.deletePost(post.$id).then((status) => {
       if (status) {
-        appwriteService.deleteFile(post.featuredImage);
+        Services.deleteFile(post.featuredImage);
         navigate("/");
       }
     });
   };
 
   return post ? (
-    <div className="py-8">
+    <div className="py-8 h-screen text-gray-200">
       <Container>
-        <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
+        <div className="w-full flex justify-center mb-4 h-30 relative border rounded-xl p-2">
           <img
-            src={appwriteService.getFilePreview(post.featuredImage)}
+            src={Services.getView(post.featuredImage)+"&mode=admin"}
             alt={post.title}
             className="rounded-xl"
           />

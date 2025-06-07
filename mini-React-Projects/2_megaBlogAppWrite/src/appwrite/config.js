@@ -116,13 +116,17 @@ export class Services {
   }
 
   getFilePreview(fileId) {
-    // try {
-    //   return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
-    // } catch (error) {
-    //   console.log("Appwrite service :: getFilePreview :: error", error);
-    //   return false;
-    // }
-    return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
+    try {
+      return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
+    } catch (error) {
+      console.log("Appwrite service :: getFilePreview :: error", error);
+      return false;
+    }
+    // return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
+  }
+
+  getView(fileId){
+    return this.bucket.getFileView(conf.appwriteBucketId, fileId)
   }
 
 }
