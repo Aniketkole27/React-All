@@ -1,10 +1,11 @@
 import Home from './Home'
 import Login from './Login'
 import Signup from './Signup'
-import Allpost from './AddPost'
+import Allpost from './AllPost'
 import AddPost from './AddPost'
 import EditPost from './EditPost'
 import Post from './Post'
+import Error from './Error'
 
 export {
     Home,
@@ -13,5 +14,6 @@ export {
     Allpost,
     AddPost,
     EditPost,
-    Post
+    Post,
+    Error
 } 

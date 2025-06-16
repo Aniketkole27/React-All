@@ -18,11 +18,11 @@ function PostForm({ post }) {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.userData)
   // let userData = useSelector((state) => state.userData);
-  console.log(userData)
+  // console.log(userData)
 
   const submit = async (data) => {
     if (post) {
-      const file = data.image[0] ? Services.uploadFile(data.image[0]) : null;
+      const file = data.image[0] ? await Services.uploadFile(data.image[0]) : null;
 
       if (file) {
         Services.deleteFile(post.featuredImage);
@@ -32,9 +32,11 @@ function PostForm({ post }) {
         ...data,
         featuredImage: file ? file.id : undefined,
       });
+      console.log(dbPost)
+
       if (dbPost) {
-        // navigate(`/post/${dbPost.$id}`);
-        navigate("/");
+        navigate(`/post/${dbPost.$id}`);
+        // navigate("/");
       }
     } else {
       let file = null;
@@ -45,10 +47,12 @@ function PostForm({ post }) {
       if (file) {
         const fileId = file.$id;
         data.featuredImage = fileId;
+
         const dbPost = await Services.createPost({
           ...data,
           userId: userData.$id,
         });
+        console.log(dbPost)
 
         if (dbPost) {
           navigate('/');
@@ -102,7 +106,7 @@ function PostForm({ post }) {
           }}
         />
         <RTE
-          label="Content :"
+          label="Content"
           name="content"
           control={control}
           defaultValue={getValues("content")}

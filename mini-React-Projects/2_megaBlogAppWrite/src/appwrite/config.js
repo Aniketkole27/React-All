@@ -17,7 +17,7 @@ export class Services {
 
   async createPost({ title, slug, content, featuredImage, status, userId }) {
     try {
-      await this.databases.createDocument(
+      return await this.databases.createDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         slug,
@@ -34,9 +34,9 @@ export class Services {
     }
   }
 
-  async updatePost(slug, { title, content, featuredImage, status }) {
+  async updatePost(slug, { title, content, status, featuredImage }) {
     try {
-      return await this.databases.updatePost(
+      return await this.databases.updateDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         slug,
@@ -125,10 +125,9 @@ export class Services {
     // return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
   }
 
-  getView(fileId){
-    return this.bucket.getFileView(conf.appwriteBucketId, fileId)
+  getView(fileId) {
+    return this.bucket.getFileView(conf.appwriteBucketId, fileId);
   }
-
 }
 
 const service = new Services();

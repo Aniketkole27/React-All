@@ -14,6 +14,7 @@ import {
   AddPost,
   EditPost,
   Post,
+  Error
 } from "./pages/index.js";
 
 const router = createBrowserRouter([
@@ -44,10 +45,9 @@ const router = createBrowserRouter([
       {
         path: "/all-posts",
         element: (
-          <AuthLayout>
-            {" "}
-            ,
-            <Allpost authentication />
+          <AuthLayout authentication>
+            {/* {" "} */}
+            <Allpost />
           </AuthLayout>
         ),
       },
@@ -73,6 +73,10 @@ const router = createBrowserRouter([
         path: "/post/:slug",
         element: <Post />,
       },
+      {
+        path: "*",
+        element: <Error />
+      }
     ],
   },
 ]);

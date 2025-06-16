@@ -34,7 +34,7 @@ function App() {
     </div>
   ) : (
     <div className="flex justify-center items-center h-screen">
-      <h1 className="text-4xl font-bold">Loading...</h1>
+      <h1 className="text-4xl font-bold text-white">Lodding</h1>
     </div>
   );
 }

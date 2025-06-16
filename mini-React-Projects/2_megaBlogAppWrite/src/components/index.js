@@ -12,6 +12,7 @@ import Signup from "./Signup";
 import RTE from "./RTE";
 import PostFrom from "./post-form/PostForm";
 import AuthLayout  from "./AuthLayout";
+import ErrorPage from "./ErrorPage";
 
 export {
   Header,
@@ -27,5 +28,6 @@ export {
   Signup,
   RTE,
   PostFrom,
-  AuthLayout
+  AuthLayout,
+  ErrorPage
 };

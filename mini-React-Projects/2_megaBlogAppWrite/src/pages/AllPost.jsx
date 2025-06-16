@@ -12,10 +12,11 @@ function AllPost() {
             }
         })
     },[])
+
     return (
         <div className='w-full py-8 h-screen'>
             <Container>
-               <div className="grid gap-2">
+               <div className="flex flex-wrap">
                 {posts.map((post)=>(
                     <div key={post.$id} className='p-2 w-1/4'>
                         {/* <PostCard post={post} /> */}

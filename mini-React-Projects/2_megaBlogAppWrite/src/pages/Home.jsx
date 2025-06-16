@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Services from "../appwrite/config";
-import { Container, PostCard } from "../components";
+import { Container, PostCard,Button } from "../components";
+import { useNavigate,Link } from "react-router-dom";
 
 function Home() {
   const [posts, setPosts] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     Services.allPost([]).then((posts) => {
@@ -32,11 +34,19 @@ function Home() {
     return (
       <div className="w-full py-8 mt-4 text-center">
         <Container>
-            <div className="flex flex-wrap">
+            <div className="flex flex-wrap h-80">
                 <div className="p-2 w-full">
-                    <h1 className="text-2xl font-bold hover: text-gray-500">
-                        Login to read posts
+                    <h1 className="text-2xl font-bold hover: text-gray-400">
+                       Create Account to View Post
                     </h1>
+                    <div className="flex justify-center mt-8">
+                      <Link to="/signup">
+                       <Button className="mx-5">Sign Up</Button>
+                      </Link>
+                      <Link to="/login">
+                       <Button>Log in</Button>
+                      </Link>
+                    </div>
                 </div>
             </div>
         </Container>
