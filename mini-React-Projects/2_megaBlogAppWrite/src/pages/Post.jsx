@@ -10,11 +10,13 @@ export default function Post() {
   const { slug } = useParams();
   const navigate = useNavigate();
 
+  
   const userData = useSelector((state) => state.userData);
-
   const isAuthor = post && userData ? post.userId === userData.$id : false;
 
+
   useEffect(() => {
+    console.log("Hello")
     if (slug) {
       Services.getPost(slug).then((post) => {
         if (post) setPost(post);
@@ -22,6 +24,7 @@ export default function Post() {
       });
     } else navigate("/");
   }, [slug, navigate]);
+
 
   const deletePost = () => {
     Services.deletePost(post.$id).then((status) => {

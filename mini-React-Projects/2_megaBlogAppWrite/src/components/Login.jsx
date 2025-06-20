@@ -16,10 +16,14 @@ function Login() {
     setError("");
     try {
       const session = await authService.login(data);
+      console.log(session)
+      
       if (session) {
         const userData = await authService.getCurrentUser();
         if (userData) dispatch(authLogin(userData));
         navigate("/");
+      }else{
+        setError("Invalid email and passwprd")
       }
     } catch (error) {
       setError(error.message || "Login failed. Please try again.");
@@ -27,7 +31,7 @@ function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center w-full shadow-2xl">
+    <div className="flex items-center justify-center w-full shadow-2xl mb-10">
       <div
         className={`mx-auto w-full max-w-lg bg-[#0f172b90] rounded-xl p-10 border border-black/10`}
       >
