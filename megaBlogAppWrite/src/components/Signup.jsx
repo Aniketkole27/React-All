@@ -29,7 +29,7 @@ function SignUp() {
   return (
     <div className="flex items-center justify-center">
       <div
-        className={`mx-auto w-full max-w-lg bg-[#0f172b] rounded-xl p-10  text-gray-200`}
+        className={`mx-auto my-10 w-full max-w-lg bg-[#0f172b] rounded-xl p-10  text-gray-200 shadow-2xl`}
       >
         <div className="mb-2 flex justify-center">
           <span className="inline-block w-full mx-2 max-w-[100px]">
