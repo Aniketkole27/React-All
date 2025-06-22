@@ -24,7 +24,7 @@ function App() {
       .finally(() => setLoading(false));
   }, []);
 
-  return !true ? (
+  return !loading ? (
     <div className=" h-screen">
       <Header />
       <main>
