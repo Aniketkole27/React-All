@@ -34,7 +34,9 @@ function App() {
     </div>
   ) : (
     <div className="flex justify-center items-center h-screen">
-      <h1 className="text-4xl font-bold text-white">Lodding</h1>
+      <h1 className="border rounded-full text-white p-4 flex items-center justify-center">
+        <div className="w-5 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+      </h1>
     </div>
   );
 }
