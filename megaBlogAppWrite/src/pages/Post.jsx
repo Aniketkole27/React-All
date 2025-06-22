@@ -1,30 +1,47 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Services from "../appwrite/config";
+import auth from "../appwrite/auth";
 import { Button, Container } from "../components";
 import parse from "html-react-parser";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Post() {
   const [post, setPost] = useState(null);
+  const [userData, setUserData] = useState(null);
   const { slug } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  
-  const userData = useSelector((state) => state.userData);
-  const isAuthor = post && userData ? post.userId === userData.$id : false;
-
+  // const userData = useSelector((state) => state.userData);
 
   useEffect(() => {
-    console.log("Hello")
-    if (slug) {
-      Services.getPost(slug).then((post) => {
-        if (post) setPost(post);
-        else navigate("/");
-      });
-    } else navigate("/");
+    const getUser = async () => {
+      try {
+        const userInfo = await auth.getCurrentUser();
+        setUserData(userInfo)
+        // console.log(userData);
+        
+        if (slug) {
+          await Services.getPost(slug).then((post) => {
+            if (post) {
+              setPost(post);
+            }
+          });
+        } else navigate("/");
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getUser();
   }, [slug, navigate]);
 
+  if (!userData || !post) {
+    return <p>Loading...</p>;
+  }
+
+  const isAuthor = post && userData ? post.userId === userData.$id : false;
 
   const deletePost = () => {
     Services.deletePost(post.$id).then((status) => {
@@ -40,7 +57,7 @@ export default function Post() {
       <Container>
         <div className="w-full flex justify-center mb-4 h-30 relative border rounded-xl p-2">
           <img
-            src={Services.getView(post.featuredImage)+"&mode=admin"}
+            src={Services.getView(post.featuredImage) + "&mode=admin"}
             alt={post.title}
             className="rounded-xl"
           />
