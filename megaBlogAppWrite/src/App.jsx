@@ -6,6 +6,7 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import { Outlet } from "react-router-dom";
 import "./App.css";
+import Card from "./Card";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,18 +25,19 @@ function App() {
       .finally(() => setLoading(false));
   }, []);
 
-  return !loading ? (
-    <div className=" h-screen">
+  return !false ? (
+    <div className="min-h-screen flex flex-col">
       <Header />
-      <main>
-        <Outlet />
-      </main>
+        <main className="flex-grow">
+          <Outlet />
+        </main>
       <Footer />
     </div>
   ) : (
-    <div className="flex justify-center items-center h-screen">
-        <div className="w-15 h-15 border-5 border-white border-t-transparent rounded-full animate-spin"></div>
-    </div>
+    // <div className="flex justify-center items-center h-screen">
+    //     <div className="w-15 h-15 border-5 border-white border-t-transparent rounded-full animate-spin"></div>
+    // </div>
+    <Card />
   );
 }
 

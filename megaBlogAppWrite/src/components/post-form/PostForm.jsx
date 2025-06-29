@@ -16,13 +16,15 @@ function PostForm({ post }) {
       },
     });
   const navigate = useNavigate();
-  const userData = useSelector((state) => state.userData)
+  const userData = useSelector((state) => state.userData);
   // let userData = useSelector((state) => state.userData);
-  console.log(userData)
+  console.log(userData);
 
   const submit = async (data) => {
     if (post) {
-      const file = data.image[0] ? await Services.uploadFile(data.image[0]) : null;
+      const file = data.image[0]
+        ? await Services.uploadFile(data.image[0])
+        : null;
 
       if (file) {
         Services.deleteFile(post.featuredImage);
@@ -32,7 +34,7 @@ function PostForm({ post }) {
         ...data,
         featuredImage: file ? file.id : undefined,
       });
-      console.log(dbPost)
+      console.log(dbPost);
 
       if (dbPost) {
         navigate(`/post/${dbPost.$id}`);
@@ -52,10 +54,10 @@ function PostForm({ post }) {
           ...data,
           userId: userData.$id,
         });
-        console.log(dbPost)
+        console.log(dbPost);
 
         if (dbPost) {
-          navigate('/');
+          navigate("/");
         }
       }
     }
@@ -86,67 +88,70 @@ function PostForm({ post }) {
   };
 
   return (
-    <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
-      <div className="w-2/3 px-2">
-        <Input
-          label="Title :"
-          placeholder="Title"
-          className="mb-4"
-          {...register("title", { required: true })}
-        />
-        <Input
-          label="Slug :"
-          placeholder="Slug"
-          className="mb-4"
-          {...register("slug", { required: true })}
-          onInput={(e) => {
-            setValue("slug", slugTransform(e.currentTarget.value), {
-              shouldValidate: true,
-            });
-          }}
-        />
-        <RTE
-          label="Content"
-          name="content"
-          control={control}
-          defaultValue={getValues("content")}
-          // readOnly = {false}
-        />
-      </div>
-      <div className="w-1/3 px-2">
-        <Input
-          label=""
-          type="file"
-          className="mb-4"
-          accept="image/png, image/jpg, image/jpeg, image/gif"
-          {...register("image", { required: !post })}
-        />
+    <>
+      <form onSubmit={handleSubmit(submit)} className="grid grid-cols-1 sm:grid-cols-2 sm:gap-20 ">
+        <div className="px-2">
+          <Input
+            label="Title :"
+            placeholder="Title"
+            className="mb-4"
+            {...register("title", { required: true })}
+          />
+          <Input
+            label="Slug :"
+            placeholder="Slug"
+            className="mb-4"
+            {...register("slug", { required: true })}
+            onInput={(e) => {
+              setValue("slug", slugTransform(e.currentTarget.value), {
+                shouldValidate: true,
+              });
+            }}
+          />
+        </div>
+        <div className=" px-2">
+          <Input
+            label=""
+            type="file"
+            className="mb-4"
+            accept="image/png, image/jpg, image/jpeg, image/gif"
+            {...register("image", { required: !post })}
+          />
 
-        {post && (
-          <div className="w-full mb-4">
-            <img
-              src={Services.getFilePreview(post.featuredImage)}
-              alt={post.title}
-              className="rounded-lg"
-            />
-          </div>
-        )}
-        <Select
-          options={["active", "inactive"]}
-          label="Status"
-          className="mb-4"
-          {...register("status", { required: true })}
-        />
-        <Button
-          type="submit"
-          // onClick={handleNaming}
-          bgColor={post ? "bg-green-500" : undefined}
-          className="w-full"
-        >
-          {post ? "Update" : "Submit"}
-        </Button>
-      </div>
-    </form>
+          {post && (
+            <div className="w-full mb-4">
+              <img
+                src={Services.getFilePreview(post.featuredImage)}
+                alt={post.title}
+                className="rounded-lg"
+              />
+            </div>
+          )}
+          <Select
+            options={["active", "inactive"]}
+            label="Status"
+            className="mb-4"
+            {...register("status", { required: true })}
+          />
+          <Button
+            type="submit"
+            // onClick={handleNaming}
+            bgColor={post ? "bg-green-500" : undefined}
+            className="w-full"
+          >
+            {post ? "Update" : "Submit"}
+          </Button>
+        </div>
+      </form>
+
+      <RTE
+        label="Content"
+        name="content"
+        control={control}
+        defaultValue={getValues("content")}
+        // readOnly = {false}
+      />
+    </>
   );
 }
 

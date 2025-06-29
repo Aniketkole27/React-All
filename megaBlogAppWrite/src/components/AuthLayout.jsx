@@ -12,6 +12,7 @@ export default function Protected({ children, authentication = true }) {
     // true && (false !== false) false
     if (authentication && authStatus !== authentication) {
       navigate("/login");
+      
     } else if (!authentication && authStatus !== authentication) {
       navigate("/");
     }

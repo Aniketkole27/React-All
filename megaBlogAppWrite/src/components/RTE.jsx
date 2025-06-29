@@ -19,7 +19,7 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
               initialValue: defaultValue,
               skin: 'oxide-dark',
                 font_size_formats: '8pt 10pt 12pt 14pt 16pt 18pt 24pt 36pt 48pt',
-              height: 500,
+              height: 400,
               menubar: true,
               plugins: [
                 "image",
